@@ -1,45 +1,86 @@
-
-// energy time = random number between 2500 and 10000 
-    // ensure mowing the yard at least happens
-// time starts (energy timer runs while chores fuctions execute)
-// each function has a setTimeout before going to the next one 
-    // if energy timer runs out .. log to console name fell asleep
-    // if not, execute next function 
-
 const randomEnergyTime = Math.floor(Math.random() * (10000 - 2500)) + 2500;
+const name = "Bill";
+let sleepMessage = "";
+let sleepstatus = "awake";
+let sleepTimer;
 
-const name = ""; 
-
-
-function mowYard (name, callback) {
-    setTimeout(()=> {
-        console.log(`${name} mowed the yard.`);
-        callback(); 
-    }, 2000);
+function fallAsleep() {
+  sleepstatus = "asleep";
+  if (sleepMessage) {
+    console.log(sleepMessage);
+  }
 }
 
+function mowYard(name, callback) {
+  setTimeout(() => {
+    if (sleepstatus === "asleep") return;
+    console.log(`${name} mowed the yard.`);
+    sleepMessage = `${name} fell asleep after mowing the yard.`;
+    callback();
+  }, 2000);
+}
 
-function weedEat (name, callback) {}
+function weedEat(name, callback) {
+  setTimeout(() => {
+    if (sleepstatus === "asleep") return;
+    console.log(`${name} finished using the weed eater.`);
+    sleepMessage = `${name} fell asleep after using the weed eater.`;
+    callback();
+  }, 1500);
+}
 
-function trimHedges (name, callback) {}
+function trimHedges(name, callback) {
+  setTimeout(() => {
+    if (sleepstatus === "asleep") return;
+    console.log(`${name} has finished trimming the hedges.`);
+    sleepMessage = `${name} fell asleep after trimming the hedges.`;
+    callback();
+  }, 1000);
+}
 
-function collectWood (name, callback) {} 
+function collectWood(name, callback) {
+  setTimeout(() => {
+    if (sleepstatus === "asleep") return;
+    console.log(`${name} has finished collecting wood.`);
+    sleepMessage = `${name} fell asleep after collecting wood.`;
+    callback();
+  }, 2500);
+}
 
-function waterGarden (name, callback) {} 
+function waterGarden(name, callback) {
+  setTimeout(() => {
+    if (sleepstatus === "asleep") return;
+    console.log(`${name} has finished watering the garden.`);
+    sleepMessage = `${name} fell asleep after watering the garden.`;
+    callback();
+  }, 500);
+}
 
-function doSummerChores(name, callback) {}
+function doSummerChores(name) {
+  // Start sleep timer
+  sleepTimer = setTimeout(() => {
+    fallAsleep();
+  }, randomEnergyTime);
 
-
-// callback hell 
-
-mowYard(()=> {
-    weedEat(()=>{
-        collectWood(()=>{
-            waterGarden(()=>{
-                doSummerChores(()=>{
-                    console.log(`${name} finished all their chores!`);
-                });
-            });
+  // Callback hell
+  mowYard(name, () => {
+    if (sleepstatus === "asleep") return;
+    weedEat(name, () => {
+      if (sleepstatus === "asleep") return;
+      trimHedges(name, () => {
+        if (sleepstatus === "asleep") return;
+        collectWood(name, () => {
+          if (sleepstatus === "asleep") return;
+          waterGarden(name, () => {
+            if (sleepstatus === "asleep") return;
+            clearTimeout(sleepTimer);
+            console.log(`${name} finished all their chores!`);
+          });
         });
+      });
     });
-});
+  });
+}
+
+// Run the chores
+doSummerChores(name);
