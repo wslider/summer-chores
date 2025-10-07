@@ -35,8 +35,8 @@ function trimHedges(name, callback) {
     console.log(`${name} has finished trimming the hedges.`);
     sleepMessage = `${name} fell asleep after trimming the hedges.`;
     callback();
-  }, 1000);
-}
+  }, 1000); }
+
 
 function collectWood(name, callback) {
   setTimeout(() => {
