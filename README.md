@@ -1,4 +1,5 @@
 # summer-chores
+- Asynchronous JavaScript project simulating a human doing a list of summer chores - each of them taking a set ammount of time to complete. 
 
 ## callbackVersion.js
 - call back hell method for chores
@@ -9,9 +10,13 @@
 - promises to chain chores in sequence
 - intoduced increased sleepy chance via random number generation (instead of fallAsleep function) to each promise. 
 
+## asyncAwaitVersion.js
+- new, improved and cleaner version using async / await
+- finishedSummerChores function added at the end 
 
 
-AI use: 
+
+AI use:
  
 callbackVersion.js 
  - used Grok 3 to search possible solutions for fallAsleep function to stop chore functions from execuiting. 
